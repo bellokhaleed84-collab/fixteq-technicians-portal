@@ -1,8 +1,8 @@
-import { model, Schema, Document } from 'mongoose';
+import mongoose, { model, models, Schema, Document, Types } from 'mongoose';
 
 export interface IEarnings extends Document {
-  technicianId: string; // Reference to Technician._id
-  jobId: string; // Reference to Job._id
+  technicianId: Types.ObjectId; // Reference to Technician._id
+  jobId: Types.ObjectId; // Reference to Job._id
   amount: number; // Amount earned before commission
   commissionDeducted: number; // Commission amount deducted
   payoutStatus: 'pending' | 'paid';
@@ -19,7 +19,7 @@ const EarningsSchema = new Schema<IEarnings>(
     payoutStatus: {
       type: String,
       enum: ['pending', 'paid'],
-      default: 'pending'
+      default: 'pending',
     },
     payoutDate: { type: Date },
   },
@@ -28,10 +28,10 @@ const EarningsSchema = new Schema<IEarnings>(
   }
 );
 
-// Indexes for common queries
 EarningsSchema.index({ technicianId: 1 });
 EarningsSchema.index({ jobId: 1 });
 EarningsSchema.index({ payoutStatus: 1 });
 EarningsSchema.index({ createdAt: 1 });
 
-export const Earnings = model<IEarnings>('Earnings', EarningsSchema);
+export const Earnings: mongoose.Model<IEarnings> =
+  models.Earnings || model<IEarnings>('Earnings', EarningsSchema);
