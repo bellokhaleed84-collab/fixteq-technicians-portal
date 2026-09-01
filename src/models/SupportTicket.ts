@@ -1,7 +1,7 @@
-import { model, Schema, Document } from 'mongoose';
+import mongoose, { model, models, Schema, Document, Types } from 'mongoose';
 
 export interface ISupportTicket extends Document {
-  technicianId: string; // Reference to Technician._id
+  technicianId: Types.ObjectId; // Reference to Technician._id
   subject: string;
   message: string;
   status: 'open' | 'in_progress' | 'resolved' | 'closed';
@@ -17,7 +17,7 @@ const SupportTicketSchema = new Schema<ISupportTicket>(
     status: {
       type: String,
       enum: ['open', 'in_progress', 'resolved', 'closed'],
-      default: 'open'
+      default: 'open',
     },
   },
   {
@@ -25,9 +25,9 @@ const SupportTicketSchema = new Schema<ISupportTicket>(
   }
 );
 
-// Indexes for common queries
 SupportTicketSchema.index({ technicianId: 1 });
 SupportTicketSchema.index({ status: 1 });
 SupportTicketSchema.index({ createdAt: 1 });
 
-export const SupportTicket = model<ISupportTicket>('SupportTicket', SupportTicketSchema);
+export const SupportTicket: mongoose.Model<ISupportTicket> =
+  models.SupportTicket || model<ISupportTicket>('SupportTicket', SupportTicketSchema);
