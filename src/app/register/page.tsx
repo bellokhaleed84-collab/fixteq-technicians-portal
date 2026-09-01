@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createUserWithEmailAndPassword, deleteUser } from "firebase/auth";
 import { auth } from "@/lib/firebase/clientApp";
+import { useAuth } from "@/contexts/AuthContext";
 
 type Step1Data = {
   firstName: string;
@@ -47,6 +48,7 @@ const TRADE_OPTIONS = [
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { refetchTechnician } = useAuth();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -154,6 +156,14 @@ export default function RegisterPage() {
         const data = await res.json().catch(() => ({}));
         throw new Error(data.error || "Failed to create technician profile");
       }
+
+      // The technician profile was just created in MongoDB. AuthProvider's
+      // onAuthStateChanged listener may have already fired a GET for this
+      // uid the moment Firebase signed the user in — possibly before this
+      // POST finished writing. Explicitly refetch now that we KNOW the
+      // profile exists, so the dashboard renders with real data instead of
+      // racing that earlier fetch.
+      await refetchTechnician();
 
       router.push("/dashboard");
     } catch (err: any) {
