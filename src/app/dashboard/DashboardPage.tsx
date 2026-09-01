@@ -47,10 +47,22 @@ function telUrl(phone: string) {
   return `tel:${phone.replace(/\s/g, "")}`;
 }
 
-const STATUS_STYLES: Record<JobStatus, string> = {
-  new: "bg-amber-100 text-amber-700",
-  accepted: "bg-blue-100 text-blue-700",
-  completed: "bg-emerald-100 text-emerald-700",
+const STATUS_DOT: Record<JobStatus, string> = {
+  new: "bg-accent",
+  accepted: "bg-info",
+  completed: "bg-success",
+};
+
+const STATUS_TEXT: Record<JobStatus, string> = {
+  new: "text-accent-dark",
+  accepted: "text-info",
+  completed: "text-success",
+};
+
+const STATUS_BORDER: Record<JobStatus, string> = {
+  new: "border-l-accent",
+  accepted: "border-l-info",
+  completed: "border-l-success",
 };
 
 const STATUS_LABEL: Record<JobStatus, string> = {
@@ -73,18 +85,18 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <p className="text-sm text-slate-400">Loading...</p>
+      <div className="min-h-screen bg-paper flex items-center justify-center">
+        <p className="text-sm text-ink/50">Loading...</p>
       </div>
     );
   }
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-paper flex items-center justify-center p-4">
         <div className="text-center">
-          <p className="text-sm text-slate-500 mb-4">You need to sign in to view your dashboard.</p>
-          <Link href="/login" className="text-sm font-semibold text-slate-900 underline">
+          <p className="text-sm text-ink/60 mb-4">You need to sign in to view your dashboard.</p>
+          <Link href="/login" className="text-sm font-semibold text-ink underline">
             Sign in
           </Link>
         </div>
@@ -94,12 +106,12 @@ export default function DashboardPage() {
 
   if (!technician) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-paper flex items-center justify-center p-4">
         <div className="text-center max-w-sm">
-          <p className="text-sm text-slate-500 mb-4">
+          <p className="text-sm text-ink/60 mb-4">
             We couldn't find an application on file for this account.
           </p>
-          <Link href="/register" className="text-sm font-semibold text-slate-900 underline">
+          <Link href="/register" className="text-sm font-semibold text-ink underline">
             Start your application
           </Link>
         </div>
@@ -123,19 +135,19 @@ export default function DashboardPage() {
 
 function RejectedState() {
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-red-100">
-          <span className="text-red-600 text-2xl">✕</span>
+    <div className="min-h-screen bg-ink flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-paper rounded-2xl shadow-xl p-8 text-center">
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-danger-soft">
+          <span className="text-danger text-2xl">✕</span>
         </div>
-        <h1 className="text-xl font-bold text-slate-900 mb-2">Application not approved</h1>
-        <p className="text-slate-500 text-sm mb-6">
+        <h1 className="text-xl font-bold text-ink mb-2">Application not approved</h1>
+        <p className="text-ink/60 text-sm mb-6">
           Your application didn't meet our verification requirements this time. Contact
           support if you think this is a mistake.
         </p>
         <Link
           href="#"
-          className="inline-block rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white hover:bg-slate-800 transition-colors"
+          className="inline-block rounded-xl bg-ink px-6 py-3 text-sm font-semibold text-paper hover:bg-ink/90 transition-colors"
         >
           Contact Support
         </Link>
@@ -151,31 +163,31 @@ function PendingState({ technician }: { technician: any }) {
   const submittedAt = technician.createdAt ? new Date(technician.createdAt) : new Date();
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-ink flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-2xl shadow-xl shadow-slate-900/10 border border-slate-100 p-8 text-center">
-          <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full border-4 border-amber-400 bg-amber-50">
-            <span className="text-amber-500 text-2xl animate-pulse">⏳</span>
+        <div className="bg-paper rounded-2xl shadow-xl shadow-black/20 p-8 text-center">
+          <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full border-4 border-accent bg-accent-soft">
+            <span className="text-accent-dark text-2xl animate-pulse">⏳</span>
           </div>
 
-          <h1 className="text-xl font-bold text-slate-900">Thanks, {firstName}</h1>
-          <p className="text-slate-500 text-sm mt-2 mb-6">
+          <h1 className="text-xl font-bold text-ink">Thanks, {firstName}</h1>
+          <p className="text-ink/60 text-sm mt-2 mb-6">
             Your application is under review. This usually takes 24–48 hours. We'll notify
             you the moment it's ready.
           </p>
 
-          <div className="text-left rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-2.5">
+          <div className="text-left rounded-xl border border-line bg-white p-4 space-y-2.5">
             {CHECKLIST.map((item) => (
               <div key={item.label} className="flex items-center gap-2.5">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-white text-xs">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-success text-white text-xs">
                   ✓
                 </span>
-                <span className="text-sm text-slate-700">{item.label}</span>
+                <span className="text-sm text-ink/80">{item.label}</span>
               </div>
             ))}
           </div>
 
-          <p className="text-xs text-slate-400 mt-6">
+          <p className="text-xs text-ink/40 mt-6">
             Submitted{" "}
             {submittedAt.toLocaleDateString(undefined, {
               day: "numeric",
@@ -186,7 +198,7 @@ function PendingState({ technician }: { technician: any }) {
         </div>
 
         <p className="text-center mt-6">
-          <Link href="#" className="text-sm font-medium text-slate-400 hover:text-slate-300">
+          <Link href="#" className="text-sm font-medium text-paper/60 hover:text-paper/80">
             Sign out
           </Link>
         </p>
@@ -278,16 +290,16 @@ function ApprovedDashboard({
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="sticky top-0 z-10 bg-white border-b border-slate-100">
+    <div className="min-h-screen bg-paper">
+      <header className="sticky top-0 z-10 bg-ink">
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center justify-between">
-          <span className="font-bold text-xl text-slate-900 tracking-tight">Crafteey</span>
+          <span className="font-bold text-xl text-paper tracking-tight">Crafteey</span>
           <div className="flex items-center gap-3">
             <div className="text-right">
-              <p className="text-sm font-semibold text-slate-900 leading-tight">{firstName}</p>
-              <p className="text-xs text-slate-400 leading-tight">{tradeLabel}</p>
+              <p className="text-sm font-semibold text-paper leading-tight">{firstName}</p>
+              <p className="text-xs text-paper/50 leading-tight">{tradeLabel}</p>
             </div>
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-white text-sm font-bold">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-accent text-ink text-sm font-bold">
               {firstName.charAt(0)}
             </div>
           </div>
@@ -297,7 +309,7 @@ function ApprovedDashboard({
       <main className="max-w-2xl mx-auto px-4 py-6 pb-28 space-y-6">
         {page === "queue" &&
           (jobsLoading ? (
-            <p className="text-sm text-slate-400 text-center py-10">Loading jobs...</p>
+            <p className="text-sm text-ink/40 text-center py-10">Loading jobs...</p>
           ) : (
             <QueuePage
               isOnline={isOnline}
@@ -342,7 +354,7 @@ function BottomNav({
   ];
 
   return (
-    <nav className="fixed bottom-0 inset-x-0 z-10 bg-white border-t border-slate-100 pb-[env(safe-area-inset-bottom)]">
+    <nav className="fixed bottom-0 inset-x-0 z-10 bg-white border-t border-line pb-[env(safe-area-inset-bottom)]">
       <div className="max-w-2xl mx-auto grid grid-cols-3">
         {items.map((item) => {
           const active = page === item.id;
@@ -356,13 +368,13 @@ function BottomNav({
               {item.icon(active)}
               <span
                 className={`text-[11px] font-semibold ${
-                  active ? "text-slate-900" : "text-slate-400"
+                  active ? "text-ink" : "text-ink/40"
                 }`}
               >
                 {item.label}
               </span>
               {!!item.badge && (
-                <span className="absolute top-1.5 right-1/2 translate-x-4 rounded-full bg-amber-500 px-1.5 py-0.5 text-[9px] font-bold text-white">
+                <span className="absolute top-1.5 right-1/2 translate-x-4 rounded-full bg-accent px-1.5 py-0.5 text-[9px] font-bold text-white">
                   {item.badge}
                 </span>
               )}
@@ -376,7 +388,7 @@ function BottomNav({
 
 function QueueIcon({ active }: { active: boolean }) {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={active ? "#0f172a" : "#94a3b8"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={active ? "#E8672B" : "#151A21"} strokeOpacity={active ? 1 : 0.4} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect x="3" y="4" width="18" height="16" rx="2" />
       <path d="M3 9h18" />
       <path d="M8 14h.01M12 14h4" />
@@ -386,7 +398,7 @@ function QueueIcon({ active }: { active: boolean }) {
 
 function WalletIcon({ active }: { active: boolean }) {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={active ? "#0f172a" : "#94a3b8"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={active ? "#E8672B" : "#151A21"} strokeOpacity={active ? 1 : 0.4} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M20 7H5a2 2 0 0 1 0-4h13v4" />
       <path d="M4 7v11a2 2 0 0 0 2 2h14v-6" />
       <path d="M17 14h.01" />
@@ -397,7 +409,7 @@ function WalletIcon({ active }: { active: boolean }) {
 
 function SettingsIcon({ active }: { active: boolean }) {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={active ? "#0f172a" : "#94a3b8"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={active ? "#E8672B" : "#151A21"} strokeOpacity={active ? 1 : 0.4} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="3" />
       <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
     </svg>
@@ -406,7 +418,7 @@ function SettingsIcon({ active }: { active: boolean }) {
 
 function BackIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f172a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#151A21" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M19 12H5" />
       <path d="M12 19l-7-7 7-7" />
     </svg>
@@ -469,16 +481,20 @@ function QueuePage({
 
   return (
     <>
-      <div className="rounded-2xl bg-white border border-slate-100 shadow-xl shadow-slate-900/5 p-5 flex items-center justify-between">
+      <div
+        className={`-mx-4 px-4 py-4 flex items-center justify-between sm:mx-0 sm:rounded-2xl sm:px-5 ${
+          isOnline ? "bg-success" : "bg-ink/90"
+        }`}
+      >
         <div className="flex items-center gap-3">
           <span
-            className={`h-2.5 w-2.5 rounded-full ${isOnline ? "bg-emerald-500" : "bg-slate-300"}`}
+            className={`h-2.5 w-2.5 rounded-full ${isOnline ? "bg-white" : "bg-paper/40"}`}
           />
           <div>
-            <p className="text-sm font-bold text-slate-900">
+            <p className="text-sm font-bold text-white">
               {isOnline ? "You're online" : "You're offline"}
             </p>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-white/70">
               {isOnline ? "You can receive new job requests" : "Go online to start receiving jobs"}
             </p>
           </div>
@@ -488,9 +504,7 @@ function QueuePage({
           role="switch"
           aria-checked={isOnline}
           onClick={onToggleOnline}
-          className={`relative h-7 w-12 shrink-0 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500/40 ${
-            isOnline ? "bg-emerald-500" : "bg-slate-200"
-          }`}
+          className="relative h-7 w-12 shrink-0 rounded-full bg-black/20 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
         >
           <span
             className={`absolute top-0.5 h-6 w-6 rounded-full bg-white shadow transition-transform ${
@@ -500,13 +514,26 @@ function QueuePage({
         </button>
       </div>
 
-      <div className="grid grid-cols-3 gap-3">
-        <StatCard label="This week" value={formatNaira(earningsThisWeek)} />
-        <StatCard label="Pending payout" value={formatNaira(pendingPayout)} />
-        <StatCard label="Jobs done" value={String(completedCount)} />
+      <div className="rounded-2xl bg-ink p-5">
+        <p className="text-xs font-medium text-paper/50">This week</p>
+        <p className="font-mono text-3xl font-bold text-accent mt-1">
+          {formatNaira(earningsThisWeek)}
+        </p>
+        <div className="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-white/10">
+          <div>
+            <p className="text-xs font-medium text-paper/50">Pending payout</p>
+            <p className="font-mono text-base font-semibold text-paper mt-0.5">
+              {formatNaira(pendingPayout)}
+            </p>
+          </div>
+          <div>
+            <p className="text-xs font-medium text-paper/50">Jobs done</p>
+            <p className="font-mono text-base font-semibold text-paper mt-0.5">{completedCount}</p>
+          </div>
+        </div>
       </div>
 
-      <div className="flex gap-1 rounded-xl bg-slate-100 p-1">
+      <div className="flex gap-5 border-b border-line">
         <SubTabButton active={subTab === "active"} onClick={() => setSubTab("active")}>
           Active
         </SubTabButton>
@@ -558,31 +585,23 @@ function SubTabButton({
     <button
       type="button"
       onClick={onClick}
-      className={`flex-1 rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
-        active ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"
+      className={`relative pb-2.5 text-sm font-semibold transition-colors ${
+        active ? "text-ink" : "text-ink/40 hover:text-ink/70"
       }`}
     >
       {children}
+      {active && (
+        <span className="absolute left-0 right-0 -bottom-px h-0.5 bg-accent rounded-full" />
+      )}
     </button>
   );
 }
 
 function EmptyState({ title, body }: { title: string; body: string }) {
   return (
-    <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center">
-      <p className="text-sm font-semibold text-slate-700">{title}</p>
-      <p className="text-xs text-slate-400 mt-1">{body}</p>
-    </div>
-  );
-}
-
-function StatCard({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-2xl bg-white border border-slate-100 shadow-sm p-4">
-      <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
-        {label}
-      </p>
-      <p className="text-lg font-bold text-slate-900 mt-1">{value}</p>
+    <div className="rounded-2xl border border-dashed border-line bg-white p-8 text-center">
+      <p className="text-sm font-semibold text-ink/80">{title}</p>
+      <p className="text-xs text-ink/40 mt-1">{body}</p>
     </div>
   );
 }
@@ -592,25 +611,24 @@ function JobCard({ job, onSelect }: { job: Job; onSelect: (id: string) => void }
     <button
       type="button"
       onClick={() => onSelect(job._id)}
-      className="w-full text-left rounded-2xl bg-white border border-slate-100 shadow-sm p-4 hover:border-slate-200 transition-colors"
+      className={`w-full text-left rounded-xl bg-white border border-line border-l-4 ${STATUS_BORDER[job.status]} p-4 hover:bg-black/[0.02] transition-colors`}
     >
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-sm font-bold text-slate-900">{job.clientName}</p>
-          <p className="text-xs text-slate-400">{job.address}</p>
+          <p className="text-sm font-bold text-ink">{job.clientName}</p>
+          <p className="text-xs text-ink/40">{job.address}</p>
         </div>
-        <span
-          className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-semibold ${STATUS_STYLES[job.status]}`}
-        >
+        <span className={`shrink-0 flex items-center gap-1.5 text-xs font-semibold ${STATUS_TEXT[job.status]}`}>
+          <span className={`h-1.5 w-1.5 rounded-full ${STATUS_DOT[job.status]}`} />
           {STATUS_LABEL[job.status]}
         </span>
       </div>
 
-      <p className="text-sm text-slate-600 mt-3">{job.description}</p>
+      <p className="text-sm text-ink/70 mt-3">{job.description}</p>
 
-      <div className="flex items-center justify-between mt-3 text-xs text-slate-500">
+      <div className="flex items-center justify-between mt-3 text-xs text-ink/50">
         <span>{job.status === "completed" ? `Completed ${job.completedAt}` : job.scheduledFor}</span>
-        <span className="font-bold text-slate-900">{formatNaira(job.price)}</span>
+        <span className="font-mono font-bold text-ink">{formatNaira(job.price)}</span>
       </div>
     </button>
   );
@@ -630,61 +648,56 @@ function JobDetailPage({
   onComplete: (id: string) => void;
 }) {
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="sticky top-0 z-10 bg-white border-b border-slate-100">
+    <div className="min-h-screen bg-paper">
+      <header className="sticky top-0 z-10 bg-white border-b border-line">
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center gap-3">
           <button
             type="button"
             onClick={onBack}
             aria-label="Back"
-            className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-slate-100 transition-colors -ml-1.5"
+            className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-black/5 transition-colors -ml-1.5"
           >
             <BackIcon />
           </button>
-          <h1 className="text-base font-bold text-slate-900">Job details</h1>
+          <h1 className="text-base font-bold text-ink">Job details</h1>
         </div>
       </header>
 
       <main className="max-w-2xl mx-auto px-4 py-6 space-y-4">
-        <div className="rounded-2xl bg-white border border-slate-100 shadow-sm p-5">
+        <div className={`rounded-xl bg-white border border-line border-l-4 ${STATUS_BORDER[job.status]} p-5`}>
           <div className="flex items-start justify-between gap-3">
             <div>
-              <p className="text-base font-bold text-slate-900">{job.clientName}</p>
-              <p className="text-xs text-slate-400 mt-0.5">{job.category}</p>
+              <p className="text-base font-bold text-ink">{job.clientName}</p>
+              <p className="text-xs text-ink/40 mt-0.5">{job.category}</p>
             </div>
-            <span
-              className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-semibold ${STATUS_STYLES[job.status]}`}
-            >
+            <span className={`shrink-0 flex items-center gap-1.5 text-xs font-semibold ${STATUS_TEXT[job.status]}`}>
+              <span className={`h-1.5 w-1.5 rounded-full ${STATUS_DOT[job.status]}`} />
               {STATUS_LABEL[job.status]}
             </span>
           </div>
 
-          <p className="text-sm text-slate-600 mt-4">{job.description}</p>
+          <p className="text-sm text-ink/70 mt-4">{job.description}</p>
 
-          <div className="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-slate-100">
+          <div className="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-line">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+              <p className="text-xs font-medium text-ink/40">
                 {job.status === "completed" ? "Completed" : "Scheduled"}
               </p>
-              <p className="text-sm font-medium text-slate-900 mt-0.5">
+              <p className="text-sm font-medium text-ink mt-0.5">
                 {job.status === "completed" ? job.completedAt : job.scheduledFor}
               </p>
             </div>
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
-                Payout
-              </p>
-              <p className="text-sm font-bold text-slate-900 mt-0.5">{formatNaira(job.price)}</p>
+              <p className="text-xs font-medium text-ink/40">Payout</p>
+              <p className="font-mono text-sm font-bold text-ink mt-0.5">{formatNaira(job.price)}</p>
             </div>
           </div>
         </div>
 
-        <div className="rounded-2xl bg-white border border-slate-100 shadow-sm p-5">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-400 mb-2">
-            Location
-          </p>
-          <div className="flex items-start gap-2 text-slate-700">
-            <span className="text-slate-400 mt-0.5">
+        <div className="rounded-xl bg-white border border-line p-5">
+          <p className="text-xs font-medium text-ink/40 mb-2">Location</p>
+          <div className="flex items-start gap-2 text-ink/80">
+            <span className="text-ink/40 mt-0.5">
               <PinIcon />
             </span>
             <p className="text-sm">{job.address}</p>
@@ -693,20 +706,18 @@ function JobDetailPage({
             href={mapsUrl(job.address)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block mt-3 text-sm font-semibold text-slate-900 underline underline-offset-2"
+            className="inline-block mt-3 text-sm font-semibold text-accent-dark underline underline-offset-2"
           >
             Get directions
           </a>
         </div>
 
-        <div className="rounded-2xl bg-white border border-slate-100 shadow-sm p-5">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-400 mb-3">
-            Contact client
-          </p>
+        <div className="rounded-xl bg-white border border-line p-5">
+          <p className="text-xs font-medium text-ink/40 mb-3">Contact client</p>
           <div className="flex gap-2">
             <a
               href={telUrl(job.clientPhone)}
-              className="flex-1 flex items-center justify-center gap-2 rounded-xl border border-slate-300 px-3 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 rounded-xl border border-line px-3 py-2.5 text-sm font-semibold text-ink hover:bg-black/[0.02] transition-colors"
             >
               <PhoneIcon />
               Call
@@ -715,7 +726,7 @@ function JobDetailPage({
               type="button"
               disabled
               title="Messaging is coming soon"
-              className="flex-1 flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-3 py-2.5 text-sm font-semibold text-slate-400 cursor-not-allowed"
+              className="flex-1 flex items-center justify-center gap-2 rounded-xl border border-line px-3 py-2.5 text-sm font-semibold text-ink/30 cursor-not-allowed"
             >
               <MessageIcon />
               Message
@@ -728,14 +739,14 @@ function JobDetailPage({
             <button
               type="button"
               onClick={() => onRespond(job._id, false)}
-              className="flex-1 rounded-xl border border-slate-300 px-3 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
+              className="flex-1 rounded-xl border border-line px-3 py-3 text-sm font-semibold text-ink hover:bg-black/[0.02] transition-colors"
             >
               Decline
             </button>
             <button
               type="button"
               onClick={() => onRespond(job._id, true)}
-              className="flex-1 rounded-xl bg-slate-900 px-3 py-3 text-sm font-semibold text-white hover:bg-slate-800 transition-colors"
+              className="flex-1 rounded-xl bg-accent px-3 py-3 text-sm font-semibold text-white hover:bg-accent-dark transition-colors"
             >
               Accept
             </button>
@@ -746,7 +757,7 @@ function JobDetailPage({
           <button
             type="button"
             onClick={() => onComplete(job._id)}
-            className="w-full rounded-xl bg-emerald-500 px-3 py-3 text-sm font-semibold text-white hover:bg-emerald-600 transition-colors"
+            className="w-full rounded-xl bg-success px-3 py-3 text-sm font-semibold text-white hover:opacity-90 transition-colors"
           >
             Mark as complete
           </button>
