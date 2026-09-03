@@ -183,39 +183,39 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 flex">
+    <div className="min-h-screen bg-ink flex">
       {/* Left panel — brand story, hidden on small screens */}
-      <div className="hidden lg:flex lg:w-2/5 flex-col justify-between p-12 bg-gradient-to-br from-slate-900 via-slate-950 to-black relative overflow-hidden">
-        <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-amber-500/10 blur-3xl" />
-        <div className="absolute bottom-0 left-0 h-64 w-64 rounded-full bg-amber-400/5 blur-3xl" />
+      <div className="hidden lg:flex lg:w-2/5 flex-col justify-between p-12 bg-ink relative overflow-hidden">
+        <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-signal/10 blur-3xl" />
+        <div className="absolute bottom-0 left-0 h-64 w-64 rounded-full bg-signal/5 blur-3xl" />
 
         <div className="relative">
-          <span className="font-bold text-2xl text-white tracking-tight">Crafteey</span>
+          <span className="font-display font-semibold text-2xl text-white tracking-tight">Crafteey</span>
         </div>
 
         <div className="relative space-y-6">
-          <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-xs font-semibold text-amber-400">
+          <div className="inline-flex items-center gap-2 rounded-full border border-signal/30 bg-signal/10 px-4 py-1.5 text-xs font-semibold text-signal">
             Now onboarding
           </div>
-          <h1 className="text-4xl font-bold text-white leading-tight">
+          <h1 className="font-display font-semibold text-4xl text-white leading-tight">
             A few steps.<br />Real verification.<br />Real work after.
           </h1>
-          <p className="text-slate-400 text-base leading-relaxed max-w-sm">
+          <p className="text-white/60 text-base leading-relaxed max-w-sm">
             We check every applicant properly, so clients can trust who shows up —
             and so you get taken seriously too.
           </p>
         </div>
 
-        <p className="relative text-xs text-slate-600">
+        <p className="relative text-xs text-white/30">
           © {new Date().getFullYear()} Crafteey Technologies
         </p>
       </div>
 
       {/* Right panel — the wizard */}
-      <div className="flex-1 flex items-center justify-center p-4 sm:p-8 bg-slate-50">
+      <div className="flex-1 flex items-center justify-center p-4 sm:p-8 bg-concrete">
         <div className="w-full max-w-md">
           <div className="lg:hidden text-center mb-6">
-            <span className="font-bold text-2xl text-slate-900 tracking-tight">Crafteey</span>
+            <span className="font-display font-semibold text-2xl text-ink tracking-tight">Crafteey</span>
           </div>
 
           {/* Step indicator */}
@@ -231,24 +231,24 @@ export default function RegisterPage() {
                       isDone
                         ? "bg-emerald-500 text-white"
                         : isActive
-                          ? "bg-slate-900 text-white"
-                          : "bg-slate-200 text-slate-500"
+                          ? "bg-ink text-white"
+                          : "bg-steel/15 text-steel"
                     }`}
                   >
                     {isDone ? "✓" : num}
                   </div>
                   {num < STEPS.length && (
-                    <div className={`h-0.5 w-8 ${isDone ? "bg-emerald-500" : "bg-slate-200"}`} />
+                    <div className={`h-0.5 w-8 ${isDone ? "bg-emerald-500" : "bg-steel/15"}`} />
                   )}
                 </div>
               );
             })}
           </div>
-          <p className="text-center text-xs font-semibold text-slate-500 mb-6 uppercase tracking-wide">
+          <p className="text-center text-xs font-semibold text-steel mb-6 uppercase tracking-wide">
             Step {step} of 3 — {STEPS[step - 1].label}
           </p>
 
-          <div className="bg-white rounded-2xl shadow-xl shadow-slate-900/5 border border-slate-100 p-8">
+          <div className="bg-panel rounded-2xl shadow-xl shadow-ink/5 border border-steel/10 p-8">
             <form onSubmit={handleSubmit} className="space-y-4">
               {error && (
                 <div className="rounded-xl border-l-4 border-red-500 bg-red-50 px-4 py-3">
@@ -259,27 +259,27 @@ export default function RegisterPage() {
               {step === 1 && (
                 <>
                   <div>
-                    <h2 className="text-xl font-bold text-slate-900">Create your account</h2>
-                    <p className="text-slate-500 text-sm mt-1">Let's start with the basics.</p>
+                    <h2 className="font-display font-semibold text-xl text-ink">Create your account</h2>
+                    <p className="text-steel text-sm mt-1">Let&apos;s start with the basics.</p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1.5">First name</label>
+                      <label className="block text-xs font-semibold text-ink mb-1.5">First name</label>
                       <input
                         type="text"
                         autoComplete="given-name"
-                        className="block w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500"
+                        className="block w-full rounded-xl border border-steel/20 bg-concrete px-3.5 py-2.5 text-sm text-ink placeholder-steel/60 focus:outline-none focus:ring-2 focus:ring-signal/40 focus:border-signal"
                         value={step1.firstName}
                         onChange={(e) => setStep1({ ...step1, firstName: e.target.value })}
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1.5">Last name</label>
+                      <label className="block text-xs font-semibold text-ink mb-1.5">Last name</label>
                       <input
                         type="text"
                         autoComplete="family-name"
-                        className="block w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500"
+                        className="block w-full rounded-xl border border-steel/20 bg-concrete px-3.5 py-2.5 text-sm text-ink placeholder-steel/60 focus:outline-none focus:ring-2 focus:ring-signal/40 focus:border-signal"
                         value={step1.lastName}
                         onChange={(e) => setStep1({ ...step1, lastName: e.target.value })}
                       />
@@ -287,23 +287,23 @@ export default function RegisterPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Email address</label>
+                    <label className="block text-xs font-semibold text-ink mb-1.5">Email address</label>
                     <input
                       type="email"
                       autoComplete="email"
-                      className="block w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500"
+                      className="block w-full rounded-xl border border-steel/20 bg-concrete px-3.5 py-2.5 text-sm text-ink placeholder-steel/60 focus:outline-none focus:ring-2 focus:ring-signal/40 focus:border-signal"
                       value={step1.email}
                       onChange={(e) => setStep1({ ...step1, email: e.target.value })}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Phone number</label>
+                    <label className="block text-xs font-semibold text-ink mb-1.5">Phone number</label>
                     <input
                       type="tel"
                       autoComplete="tel"
                       placeholder="e.g. 0803 123 4567"
-                      className="block w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500"
+                      className="block w-full rounded-xl border border-steel/20 bg-concrete px-3.5 py-2.5 text-sm text-ink placeholder-steel/60 focus:outline-none focus:ring-2 focus:ring-signal/40 focus:border-signal"
                       value={step1.phone}
                       onChange={(e) => setStep1({ ...step1, phone: e.target.value })}
                     />
@@ -311,21 +311,21 @@ export default function RegisterPage() {
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1.5">Password</label>
+                      <label className="block text-xs font-semibold text-ink mb-1.5">Password</label>
                       <input
                         type="password"
                         autoComplete="new-password"
-                        className="block w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500"
+                        className="block w-full rounded-xl border border-steel/20 bg-concrete px-3.5 py-2.5 text-sm text-ink placeholder-steel/60 focus:outline-none focus:ring-2 focus:ring-signal/40 focus:border-signal"
                         value={step1.password}
                         onChange={(e) => setStep1({ ...step1, password: e.target.value })}
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1.5">Confirm</label>
+                      <label className="block text-xs font-semibold text-ink mb-1.5">Confirm</label>
                       <input
                         type="password"
                         autoComplete="new-password"
-                        className="block w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500"
+                        className="block w-full rounded-xl border border-steel/20 bg-concrete px-3.5 py-2.5 text-sm text-ink placeholder-steel/60 focus:outline-none focus:ring-2 focus:ring-signal/40 focus:border-signal"
                         value={step1.confirmPassword}
                         onChange={(e) => setStep1({ ...step1, confirmPassword: e.target.value })}
                       />
@@ -335,7 +335,7 @@ export default function RegisterPage() {
                   <button
                     type="button"
                     onClick={handleNext}
-                    className="w-full rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/20 hover:bg-slate-800 transition-colors"
+                    className="w-full rounded-xl bg-ink px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-ink/20 hover:bg-ink/90 transition-colors"
                   >
                     Continue
                   </button>
@@ -345,12 +345,12 @@ export default function RegisterPage() {
               {step === 2 && (
                 <>
                   <div>
-                    <h2 className="text-xl font-bold text-slate-900">Identity verification</h2>
-                    <p className="text-slate-500 text-sm mt-1">We need your NIN to confirm who you are.</p>
+                    <h2 className="font-display font-semibold text-xl text-ink">Identity verification</h2>
+                    <p className="text-steel text-sm mt-1">We need your NIN to confirm who you are.</p>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                    <label className="block text-xs font-semibold text-ink mb-1.5">
                       National Identification Number (NIN)
                     </label>
                     <input
@@ -358,17 +358,17 @@ export default function RegisterPage() {
                       inputMode="numeric"
                       maxLength={11}
                       placeholder="11-digit NIN"
-                      className="block w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500"
+                      className="block w-full rounded-xl border border-steel/20 bg-concrete px-3.5 py-2.5 text-sm text-ink placeholder-steel/60 focus:outline-none focus:ring-2 focus:ring-signal/40 focus:border-signal"
                       value={step2.nin}
                       onChange={(e) => setStep2({ ...step2, nin: e.target.value.replace(/\D/g, "") })}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                    <label className="block text-xs font-semibold text-ink mb-1.5">
                       NIN slip or card (photo)
                     </label>
-                    <label className="flex flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 px-4 py-6 text-center cursor-pointer hover:border-amber-400 transition-colors">
+                    <label className="flex flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-steel/25 bg-concrete px-4 py-6 text-center cursor-pointer hover:border-signal transition-colors">
                       <input
                         type="file"
                         accept="image/*,application/pdf"
@@ -379,8 +379,8 @@ export default function RegisterPage() {
                         <span className="text-sm font-medium text-emerald-600">✓ {step2.ninDocument.name}</span>
                       ) : (
                         <>
-                          <span className="text-sm font-semibold text-slate-700">Tap to upload</span>
-                          <span className="text-xs text-slate-400">Photo or PDF</span>
+                          <span className="text-sm font-semibold text-ink">Tap to upload</span>
+                          <span className="text-xs text-steel">Photo or PDF</span>
                         </>
                       )}
                     </label>
@@ -390,14 +390,14 @@ export default function RegisterPage() {
                     <button
                       type="button"
                       onClick={handleBack}
-                      className="flex-1 rounded-xl border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
+                      className="flex-1 rounded-xl border border-steel/25 px-4 py-3 text-sm font-semibold text-ink hover:bg-steel/5 transition-colors"
                     >
                       Back
                     </button>
                     <button
                       type="button"
                       onClick={handleNext}
-                      className="flex-1 rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/20 hover:bg-slate-800 transition-colors"
+                      className="flex-1 rounded-xl bg-ink px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-ink/20 hover:bg-ink/90 transition-colors"
                     >
                       Continue
                     </button>
@@ -408,16 +408,16 @@ export default function RegisterPage() {
               {step === 3 && (
                 <>
                   <div>
-                    <h2 className="text-xl font-bold text-slate-900">Qualifications & work</h2>
-                    <p className="text-slate-500 text-sm mt-1">
+                    <h2 className="font-display font-semibold text-xl text-ink">Qualifications &amp; work</h2>
+                    <p className="text-steel text-sm mt-1">
                       Tell us your trade, and show us your certificate and past work.
                     </p>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Trade</label>
+                    <label className="block text-xs font-semibold text-ink mb-1.5">Trade</label>
                     <select
-                      className="block w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500"
+                      className="block w-full rounded-xl border border-steel/20 bg-concrete px-3.5 py-2.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-signal/40 focus:border-signal"
                       value={step3.category}
                       onChange={(e) => setStep3({ ...step3, category: e.target.value })}
                     >
@@ -432,23 +432,23 @@ export default function RegisterPage() {
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                      <label className="block text-xs font-semibold text-ink mb-1.5">
                         Years of experience
                       </label>
                       <input
                         type="number"
                         min={0}
-                        className="block w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500"
+                        className="block w-full rounded-xl border border-steel/20 bg-concrete px-3.5 py-2.5 text-sm text-ink placeholder-steel/60 focus:outline-none focus:ring-2 focus:ring-signal/40 focus:border-signal"
                         value={step3.yearsExperience}
                         onChange={(e) => setStep3({ ...step3, yearsExperience: e.target.value })}
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1.5">Base area</label>
+                      <label className="block text-xs font-semibold text-ink mb-1.5">Base area</label>
                       <input
                         type="text"
                         placeholder="e.g. Ikeja, Lagos"
-                        className="block w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500"
+                        className="block w-full rounded-xl border border-steel/20 bg-concrete px-3.5 py-2.5 text-sm text-ink placeholder-steel/60 focus:outline-none focus:ring-2 focus:ring-signal/40 focus:border-signal"
                         value={step3.baseArea}
                         onChange={(e) => setStep3({ ...step3, baseArea: e.target.value })}
                       />
@@ -456,10 +456,10 @@ export default function RegisterPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                    <label className="block text-xs font-semibold text-ink mb-1.5">
                       School certificate
                     </label>
-                    <label className="flex flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 px-4 py-6 text-center cursor-pointer hover:border-amber-400 transition-colors">
+                    <label className="flex flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-steel/25 bg-concrete px-4 py-6 text-center cursor-pointer hover:border-signal transition-colors">
                       <input
                         type="file"
                         accept="image/*,application/pdf"
@@ -470,18 +470,18 @@ export default function RegisterPage() {
                         <span className="text-sm font-medium text-emerald-600">✓ {step3.certificate.name}</span>
                       ) : (
                         <>
-                          <span className="text-sm font-semibold text-slate-700">Tap to upload</span>
-                          <span className="text-xs text-slate-400">Photo or PDF</span>
+                          <span className="text-sm font-semibold text-ink">Tap to upload</span>
+                          <span className="text-xs text-steel">Photo or PDF</span>
                         </>
                       )}
                     </label>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                    <label className="block text-xs font-semibold text-ink mb-1.5">
                       Proof of past work ({step3.workProof.length}/3 minimum)
                     </label>
-                    <label className="flex flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 px-4 py-6 text-center cursor-pointer hover:border-amber-400 transition-colors">
+                    <label className="flex flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-steel/25 bg-concrete px-4 py-6 text-center cursor-pointer hover:border-signal transition-colors">
                       <input
                         type="file"
                         accept="image/*"
@@ -491,15 +491,15 @@ export default function RegisterPage() {
                           setStep3({ ...step3, workProof: [...step3.workProof, ...Array.from(e.target.files ?? [])] })
                         }
                       />
-                      <span className="text-sm font-semibold text-slate-700">Tap to add photos</span>
-                      <span className="text-xs text-slate-400">At least 3 photos</span>
+                      <span className="text-sm font-semibold text-ink">Tap to add photos</span>
+                      <span className="text-xs text-steel">At least 3 photos</span>
                     </label>
                     {step3.workProof.length > 0 && (
                       <div className="mt-2 flex flex-wrap gap-2">
                         {step3.workProof.map((file, i) => (
                           <span
                             key={i}
-                            className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600"
+                            className="rounded-full bg-steel/10 px-3 py-1 text-xs font-medium text-steel"
                           >
                             {file.name}
                           </span>
@@ -512,14 +512,14 @@ export default function RegisterPage() {
                     <button
                       type="button"
                       onClick={handleBack}
-                      className="flex-1 rounded-xl border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
+                      className="flex-1 rounded-xl border border-steel/25 px-4 py-3 text-sm font-semibold text-ink hover:bg-steel/5 transition-colors"
                     >
                       Back
                     </button>
                     <button
                       type="submit"
                       disabled={loading}
-                      className="flex-1 rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/20 hover:bg-slate-800 transition-colors disabled:opacity-50"
+                      className="flex-1 rounded-xl bg-ink px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-ink/20 hover:bg-ink/90 transition-colors disabled:opacity-50"
                     >
                       {loading ? "Submitting..." : "Submit application"}
                     </button>
@@ -529,9 +529,9 @@ export default function RegisterPage() {
             </form>
 
             {step === 1 && (
-              <p className="mt-6 text-center text-sm text-slate-500">
+              <p className="mt-6 text-center text-sm text-steel">
                 Already have an account?{" "}
-                <Link href="/login" className="font-semibold text-slate-900 underline underline-offset-2">
+                <Link href="/login" className="font-semibold text-ink underline underline-offset-2">
                   Sign in
                 </Link>
               </p>

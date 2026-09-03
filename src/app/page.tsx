@@ -18,6 +18,24 @@ const VALUE_PROPS = [
 
 const TRADES = ["Plumbing", "Painting", "Electrical", "Carpentry", "Tiling", "AC Repair", "Masonry", "Welding"];
 
+const HOW_IT_WORKS = [
+  {
+    step: "01",
+    title: "Apply and get verified",
+    body: "Submit your NIN, a school certificate, and a few photos of past work. Our team reviews every application by hand.",
+  },
+  {
+    step: "02",
+    title: "Go online",
+    body: "Once approved, flip on availability whenever you're ready to take jobs — nothing lands in your queue until you're online.",
+  },
+  {
+    step: "03",
+    title: "Get dispatched, get paid",
+    body: "Accept a job at a price that's already set. Do the work, mark it complete, and payment follows — no invoicing, no chasing.",
+  },
+];
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-concrete">
@@ -28,20 +46,32 @@ export default function Home() {
         </Link>
       </header>
 
-      {/* Hero — split panel: bold ink block carries the message, photo carries the proof */}
-      <section className="grid sm:grid-cols-2">
-        <div className="order-2 sm:order-1 bg-ink px-6 py-14 sm:px-12 sm:py-20 flex flex-col justify-center">
+      {/* Hero — full-bleed photo, centered message, single entrance animation */}
+      <section className="relative isolate min-h-[560px] sm:min-h-[680px] px-6 py-16 sm:px-12 flex flex-col items-center justify-center text-center overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/hero-technicians.png"
+            alt="Technicians working — plumber, painter, carpenter, and electrician on a job"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/55 to-ink/80" />
+        </div>
+
+        <div className="animate-hero-in relative z-10 max-w-2xl">
           <span className="inline-flex items-center gap-2 text-sm font-semibold text-signal mb-6">
             Now onboarding in Lagos
           </span>
-          <h1 className="font-display font-semibold text-4xl sm:text-5xl text-white leading-[1.08] max-w-md">
+          <h1 className="font-display font-semibold text-4xl sm:text-6xl text-white leading-[1.08]">
             Steady work for vetted painters, plumbers &amp; electricians
           </h1>
-          <p className="text-white/70 text-base mt-5 max-w-sm leading-relaxed">
+          <p className="text-white/75 text-base sm:text-lg mt-5 max-w-xl mx-auto leading-relaxed">
             Crafteey sends real jobs straight to your phone. Get verified once, then get
             dispatched — no bidding wars, no chasing clients for payment.
           </p>
-          <div className="mt-9 flex flex-col sm:flex-row gap-3">
+          <div className="mt-9 flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/register"
               className="rounded-md bg-signal px-7 py-3.5 text-sm font-semibold text-ink text-center hover:bg-signal/90 transition-colors"
@@ -50,22 +80,11 @@ export default function Home() {
             </Link>
             <Link
               href="/login"
-              className="rounded-md border border-white/25 px-7 py-3.5 text-sm font-semibold text-white text-center hover:bg-white/5 transition-colors"
+              className="rounded-md border border-white/30 px-7 py-3.5 text-sm font-semibold text-white text-center hover:bg-white/10 transition-colors"
             >
               Sign In
             </Link>
           </div>
-        </div>
-
-        <div className="order-1 sm:order-2 relative min-h-[280px] sm:min-h-0">
-          <Image
-            src="/hero-technicians.png"
-            alt="Technicians working — plumber, painter, carpenter, and electrician on a job"
-            fill
-            priority
-            sizes="(min-width: 640px) 50vw, 100vw"
-            className="object-cover"
-          />
         </div>
       </section>
 
@@ -81,6 +100,48 @@ export default function Home() {
               className="rounded-md border border-white/10 bg-white/[0.03] p-6 border-l-4 border-l-signal"
             >
               <h3 className="font-semibold text-white text-base mb-2">{item.title}</h3>
+              <p className="text-white/60 text-sm leading-relaxed">{item.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Why we exist — company story, gives the page real substance */}
+      <section className="px-6 py-16 sm:px-12">
+        <div className="max-w-2xl">
+          <h2 className="font-display font-semibold text-2xl sm:text-3xl text-ink mb-6">
+            Why Crafteey exists
+          </h2>
+          <div className="space-y-4 text-steel text-base leading-relaxed">
+            <p>
+              Skilled tradespeople in Lagos have always been in demand — but finding
+              consistent, fairly-paid work has usually meant word of mouth, informal
+              referrals, and a lot of unpaid time between jobs. On the other side,
+              clients hiring a plumber or electrician off a phone number shared in a
+              group chat have no real way to know who they&apos;re letting into their home.
+            </p>
+            <p>
+              Crafteey exists to close that gap. We verify every technician&apos;s
+              identity and track record before they ever appear in a client&apos;s search,
+              and in return, we send them real, already-priced jobs instead of leaving
+              them to compete on price in a bidding war. It&apos;s a more serious way to
+              run a trade business — for the people doing the work, and the people
+              hiring them.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* How it works — genuinely sequential, so numbering earns its place */}
+      <section className="px-6 py-16 sm:px-12 bg-ink">
+        <h2 className="font-display font-semibold text-2xl sm:text-3xl text-white mb-10 max-w-md">
+          How it works
+        </h2>
+        <div className="grid gap-8 sm:grid-cols-3 max-w-5xl">
+          {HOW_IT_WORKS.map((item) => (
+            <div key={item.step}>
+              <span className="font-display text-sm font-semibold text-signal">{item.step}</span>
+              <h3 className="font-semibold text-white text-base mt-2 mb-2">{item.title}</h3>
               <p className="text-white/60 text-sm leading-relaxed">{item.body}</p>
             </div>
           ))}
